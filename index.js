@@ -4,12 +4,13 @@ const fs = require('fs')
 
 const app = express();
 
-const pathToFile = "/home/pi/pool/tempIN"
+const basePathToFile = "/home/pi/pool/"
 
 app.use(bodyParser.json());
 
 app.post("/", (req, res) => {
-  fs.writeFileSync(pathToFile, req.body.temperature);
+  fs.writeFileSync(pathToFile+"tempIN", req.body.temperature);
+  fs.writeFileSync(pathToFile + "lastupdate", new Date());
   res.send("ok").status(200);
 })
 
