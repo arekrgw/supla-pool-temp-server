@@ -9,7 +9,9 @@ const basePathToFile = "/home/pi/pool/"
 app.use(bodyParser.json());
 
 app.post("/", (req, res) => {
-  fs.writeFileSync(basePathToFile+"tempIN", req.body.temperature);
+  Object.keys(req.body).map(el=>{
+    fs.writeFileSync(basePathToFile+el, req.body[el]);
+  })
   fs.writeFileSync(basePathToFile + "lastupdate", new Date());
   res.send("ok").status(200);
 })
